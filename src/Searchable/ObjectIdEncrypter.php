@@ -39,6 +39,10 @@ class ObjectIdEncrypter
      */
     public static function encrypt($searchable, int $part = null): string
     {
+        if (method_exists($searchable, 'scoutEncryptUsing')) {
+            return $searchable->scoutEncryptUsing();
+        }
+
         $scoutKey = method_exists($searchable, 'getScoutKey') ? $searchable->getScoutKey() : $searchable->getKey();
 
         $meta = [get_class($searchable->getModel()), $scoutKey];
@@ -65,8 +69,12 @@ class ObjectIdEncrypter
      *
      * @return string
      */
-    public static function decryptSearchable(string $objectId): string
+    public static function decryptSearchable(string $objectId, $searchable = null): string
     {
+        if ($searchable && method_exists($searchable, 'scoutDecryptUsing')) {
+            return $searchable->scoutDecryptUsing();
+        }
+
         return (string) self::getSearchableExploded($objectId)[0];
     }
 
