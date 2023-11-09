@@ -51,7 +51,7 @@ class ModelsResolver
 
         $models = [];
         foreach ($hits->keys() as $id) {
-            $modelClass = ObjectIdEncrypter::decryptSearchable((string) $id, $searchable);
+            $modelClass = ObjectIdEncrypter::decryptSearchable((string) $id);
             $modelKey = ObjectIdEncrypter::decryptSearchableKey((string) $id);
             if (! array_key_exists($modelClass, $models)) {
                 $models[$modelClass] = [];
@@ -61,7 +61,9 @@ class ModelsResolver
         }
 
         foreach ($models as $modelClass => $modelKeys) {
-            $model = new $modelClass;
+            $model = class_exists($modelClass)
+                ? new $modelClass
+                : new $searchable;
 
             if (in_array(Searchable::class, class_uses_recursive($model), true)) {
                 if (! empty($models = $model->getScoutModelsByIds($builder, $modelKeys))) {
