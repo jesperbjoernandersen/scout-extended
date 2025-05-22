@@ -23,7 +23,6 @@ use Illuminate\Support\Str;
 use Laravel\Scout\Engines\Algolia3Engine;
 use function is_array;
 use Laravel\Scout\Builder;
-use Laravel\Scout\Engines\AlgoliaEngine as BaseAlgoliaEngine;
 
 if (version_compare(Scout::VERSION, '10.11.6', '>=')) {
     // New Laravel Scout base class for Algolia
