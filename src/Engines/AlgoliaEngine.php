@@ -20,6 +20,7 @@ use Algolia\ScoutExtended\Searchable\ModelsResolver;
 use Algolia\ScoutExtended\Searchable\ObjectIdEncrypter;
 use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Str;
+use Laravel\Scout\Engines\Algolia3Engine;
 use function is_array;
 use Laravel\Scout\Builder;
 use Laravel\Scout\Engines\AlgoliaEngine as BaseAlgoliaEngine;
